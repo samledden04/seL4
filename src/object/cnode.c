@@ -295,6 +295,7 @@ exception_t decodeCNodeInvocation(word_t invLabel, word_t length, cap_t cap,
         // NOTE: These if statements were added to allow rotate for endpoint capabilities.
         // This should be safe, but it seems like we could also potentially just place another
         // layer of CNode indirection and rotate the CNode caps instead (based on updateCapData).
+        userError("Congrats you're in the new sel4 microkernel.");
         if (srcNewData != cap_endpoint_cap_get_capEPBadge(srcSlot->cap)) {
             newSrcCap = updateCapData(true, srcNewData, srcSlot->cap);
         } else {
