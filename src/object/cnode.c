@@ -289,8 +289,21 @@ exception_t decodeCNodeInvocation(word_t invLabel, word_t length, cap_t cap,
             return EXCEPTION_SYSCALL_ERROR;
         }
 
-        newSrcCap = updateCapData(true, srcNewData, srcSlot->cap);
-        newPivotCap = updateCapData(true, pivotNewData, pivotSlot->cap);
+        // NOTE: These if statements were added to allow rotate for endpoint capabilities.
+        // This should be safe, but it seems like we could also potentially just place another
+        // layer of CNode indirection and rotate the CNode caps instead (based on updateCapData).
+        printf("Hi!\n");
+        if (srcNewData != cap_endpoint_cap_get_capEPBadge(srcSlot->cap)) {
+            newSrcCap = updateCapData(true, srcNewData, srcSlot->cap);
+        } else {
+            newSrcCap = srcSlot->cap;
+        }
+        if (pivotNewData != cap_endpoint_cap_get_capEPBadge(pivotSlot->cap)) {
+            newPivotCap = updateCapData(true, pivotNewData, pivotSlot->cap);
+        } else {
+            newPivotCap = pivotSlot->cap;
+        }
+
 
         if (cap_get_capType(newSrcCap) == cap_null_cap) {
             userError("CNode Rotate: Source cap invalid.");
