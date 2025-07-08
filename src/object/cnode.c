@@ -293,12 +293,13 @@ exception_t decodeCNodeInvocation(word_t invLabel, word_t length, cap_t cap,
         // This should be safe, but it seems like we could also potentially just place another
         // layer of CNode indirection and rotate the CNode caps instead (based on updateCapData).
         printf("Hi!\n");
-        if (srcNewData != cap_endpoint_cap_get_capEPBadge(srcSlot->cap)) {
+        if (cap_get_capType(srcSlot->cap) == cap_endpoint_cap && srcNewData != cap_endpoint_cap_get_capEPBadge(srcSlot->cap)) {
             newSrcCap = updateCapData(true, srcNewData, srcSlot->cap);
         } else {
             newSrcCap = srcSlot->cap;
         }
-        if (pivotNewData != cap_endpoint_cap_get_capEPBadge(pivotSlot->cap)) {
+
+        if (cap_get_capType(pivotSlot->cap) == cap_endpoint_cap && pivotNewData != cap_endpoint_cap_get_capEPBadge(pivotSlot->cap)) {
             newPivotCap = updateCapData(true, pivotNewData, pivotSlot->cap);
         } else {
             newPivotCap = pivotSlot->cap;
