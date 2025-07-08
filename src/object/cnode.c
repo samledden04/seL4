@@ -292,16 +292,16 @@ exception_t decodeCNodeInvocation(word_t invLabel, word_t length, cap_t cap,
         // NOTE: These if statements were added to allow rotate for endpoint capabilities.
         // This should be safe, but it seems like we could also potentially just place another
         // layer of CNode indirection and rotate the CNode caps instead (based on updateCapData).
-        printf("Evaluating cap... srcSlot is endpoint? %d\n", cap_get_capType(srcSlot->cap) != cap_endpoint_cap);
+        // printf("Evaluating cap... srcSlot is endpoint? %d\n", cap_get_capType(srcSlot->cap) != cap_endpoint_cap);
         if (cap_get_capType(srcSlot->cap) != cap_endpoint_cap || srcNewData != cap_endpoint_cap_get_capEPBadge(srcSlot->cap)) {
-            printf("newSrcCap = updateCapData(true, srcNewData, srcSlot->cap);\n");
+            // printf("newSrcCap = updateCapData(true, srcNewData, srcSlot->cap);\n");
             newSrcCap = updateCapData(true, srcNewData, srcSlot->cap);
         } else {
             newSrcCap = srcSlot->cap;
         }
 
         if (cap_get_capType(pivotSlot->cap) != cap_endpoint_cap || pivotNewData != cap_endpoint_cap_get_capEPBadge(pivotSlot->cap)) {
-            printf("newPivotCap = updateCapData(true, pivotNewData, pivotSlot->cap);\n");
+            // printf("newPivotCap = updateCapData(true, pivotNewData, pivotSlot->cap);\n");
             newPivotCap = updateCapData(true, pivotNewData, pivotSlot->cap);
         } else {
             newPivotCap = pivotSlot->cap;
